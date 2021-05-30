@@ -103,7 +103,9 @@ public class Racer extends AbstractBehavior<Racer.Command> {
     public Receive<Command> waitingToStop() {
         return newReceiveBuilder()
                 .onSignal(PostStop.class, signal -> {
-                    System.out.println("I am about to terminate!");
+                    if (getContext().getLog().isInfoEnabled()) {
+                        getContext().getLog().info("I am about to terminate");
+                    }
                     return Behaviors.same();
                 })
                 .onAnyMessage(message -> Behaviors.same())
